@@ -26,6 +26,7 @@
 | 2026-10-13 | Hardening DevSecOps + README: `.gitignore` (keystores, env, signing/, hprof/log; duplicado `local.properties` consolidado), `AGENTS.md` (SDK target/compile, rutas tipadas, DoD FT-00…FT-03, sin `PaginationQuery` demo, Detekt bloqueante), `README.md` creado | Constitución v1.0.0 intacta (redacción genérica, sin re-ratificación) |
 | 2026-10-13 | Agentes/skills al día con lo medido: 8 agentes + 3 skills actualizados, alias real `readme-keeper` creado, `README.md` en sync de `docs-keeper` | Cierra stales (Detekt, `PaginationQuery`, Aprobación 4 campos, JUnit Platform) |
 | 2026-10-13 | `README.md` en inglés: descripción SDD+DevSecOps + secciones SDD components y Subagents & skills; tag pendiente corregido (repo existe desde `19b93f9`) | Docs-keeper: README en sync |
+| 2026-10-13 | Tag `v0.1.0-ft3` creado y pusheado a `origin` (gates revalidados exit 0, FT-00…FT-03 ✅) | Cierra FT-03 gates-cierre; `main` aún sin protección en GitHub (activar en Settings) |
 | 2026-10-13 | Repo git inicializado (`main`, root-commit `19b93f9`, 120 archivos, identidad global existente): `local.properties`/`build/` fuera, sin secretos commiteados | Tag `v0.1.0-ft3` pendiente de primera entidad con cambios |
 
 ## Errores a evitar
