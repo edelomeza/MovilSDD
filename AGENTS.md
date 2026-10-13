@@ -96,16 +96,16 @@ En CI solo critic ligero bloqueantes 1-4.
 
 Definiciones: `.opencode/skills/*/SKILL.md` (`name` = directorio, kebab-case).
 Base: `android-clean-base` (capas), `compose-mvvm-state` (`UiState/UiEvent`), `koin-di-generic` (DI), `android-testing-generic` (JUnit5+MockK+Turbine, `CAPTURE=1`), `devsecops-gates-generic` (gates sin deploy).
-Soporte: `contracts-docs` (`docs/` vivos), `store-local` (cifrado+migraciones+seed). Ante conflicto, manda constitución.
+Soporte: `contracts-docs` (`docs/` vivos), `store-local` (cifrado+migraciones+seed), `mobile-app-ui-design` (UI/UX), `api-client-integration` (OpenAPI/DTOs), `auth-session-management` (auth/sesión). Ante conflicto, manda constitución.
 
 ## Solution structure
 
 | Project | Path | Type |
 |---|---|---|
 | app | `app/` | Application Compose `MainActivity` |
-| domain | `app/src/main/.../domain/` | Puro `model/repository/usecase` |
-| data | `app/src/main/.../data/` | `remote/local/repository` |
-| ui | `app/src/main/.../ui/` | `feature/navigation/theme` |
+| domain | `app/src/main/.../domain/` | Puro `model/repository/usecase` (FT-04: AuthModels, AuthRepository, Login/LogoutUseCase) |
+| data | `app/src/main/.../data/` | `remote/local/repository` (FT-04: AuthApiService, DTOs, TokenLocalDataSource, SessionManager, AuthRepositoryImpl) |
+| ui | `app/src/main/.../ui/` | `feature/navigation/theme` (FT-04: feature/login, feature/home placeholder) |
 | UnitTest | `app/src/test/` | JUnit5 |
 | androidTest | `app/src/androidTest/` | Compose-Test |
 | scripts | `scripts/` | critic, coverage, delta |

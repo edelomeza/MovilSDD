@@ -9,6 +9,7 @@ Rector: `.specify/memory/constitution.md` + `AGENTS.md`. Leer ambos + `Memoria.m
 ## Hace
 - Crea/actualiza `specs/FT-0X/spec.md` desde `specs/_template.md` (copia fisica de `.specify/templates/spec-template.md`).
 - 7 secciones + tabla Aprobacion: Borrador con evidencia, o ✅ Aprobada con 4 campos (revisor humano + fecha expresa + CHECKLIST_PR.md OK + sin conflicto). Criterios Given/When/Then verificables.
+- Si la feature es auth/API real: exige §2 con endpoints reales, DTOs con campos exactos, esquema de expiración (server-driven), flujo logout y navegación inicial por sesión (ver `api-client-integration`, `auth-session-management`).
 
 ## No hace
 - No codigo, no DI, no tests. No adivina: reporta ambiguedades como preguntas.
