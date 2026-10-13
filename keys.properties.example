@@ -1,0 +1,4 @@
+# Copiar a keys.properties (gitignored). Nunca subir secretos.
+# key.alias.aliasDebug=
+# key.store.password.256b.from.env=
+# SIGNING_* solo CI via env.

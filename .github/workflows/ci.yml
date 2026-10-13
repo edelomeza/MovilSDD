@@ -1,0 +1,74 @@
+name: ci
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate-wrapper:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: gradle/wrapper-validation-action@v2
+
+  static-analysis:
+    needs: validate-wrapper
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - run: ./gradlew lint --no-daemon
+
+  unit-test:
+    needs: static-analysis
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - run: ./gradlew testDebugUnitTest koverVerify --no-daemon
+
+  instrumentation-compile:
+    needs: unit-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - run: ./gradlew compileDebugAndroidTestSources --no-daemon
+
+  security-scan:
+    needs: instrumentation-compile
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/codeql-action/init@v3
+        with:
+          languages: java-kotlin
+      - uses: github/codeql-action/analyze@v3
+
+  build:
+    if: github.ref == 'refs/heads/main'
+    needs: security-scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - run: ./gradlew assembleDebug --no-daemon

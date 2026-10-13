@@ -1,0 +1,15 @@
+# Detekt — MovilSDD (constitución §5: Detekt como error).
+# Método ≤10 vía CyclomaticComplexMethod. Clase ≤15 sin regla equivalente en
+# detekt 2.x (LargeClass mide líneas): la valida `layer-guardian` (gate manual).
+config:
+  validation: true
+complexity:
+  CyclomaticComplexMethod:
+    active: true
+    allowedComplexity: 10
+naming:
+  FunctionNaming:
+    active: true
+    ignoreAnnotated:
+      - 'Composable'
+      - 'Preview'

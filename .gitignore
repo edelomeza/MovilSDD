@@ -1,0 +1,32 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+keys.properties
+# Firma — SIGNING_*/KEYSTORE_* solo CI, nunca en repo (constitución §6)
+*.jks
+*.keystore
+*.p12
+*.pfx
+*.pem
+*.key
+signing/
+# Secretos/entorno
+.env
+.env.*
+secrets.properties
+keystore.properties
+# Profiling/logs
+*.hprof
+*.log
