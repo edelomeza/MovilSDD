@@ -1,55 +1,81 @@
-# MovilSDD — App base Android (Kotlin + Compose + Clean + Koin)
+# MovilSDD — Android base app (Kotlin + Compose + Clean + Koin)
 
-> Metodología SDD. Rector: `.specify/memory/constitution.md` v1.0.0 (espejo `./constitution.md`); cómo trabajar: `AGENTS.md`.
-> Estado: arquitectura base **FT-00…FT-03 ✅ Aprobadas** (2026-10-13). Sin entidad de aplicación aún.
+> Project built with Spec Driven-Development and DevSecOps best practices.
+> Source of truth: `.specify/memory/constitution.md` v1.0.0 (mirror `./constitution.md`); working guide: `AGENTS.md`.
+> Status: base architecture **FT-00…FT-03 ✅ Approved** (2026-10-13). No app entity yet.
 
 ## Stack
 
-| Capa | Tecnología |
+| Layer | Technology |
 |---|---|
 | Runtime | Kotlin 2.3.20 / AGP 9.4.1 / Gradle 9.8.0 / JDK 21 (target 36, compile 37) |
-| UI | Compose BOM 2026.08.00 + Material3 + Navigation type-safe (`@Serializable`) |
-| DI | Koin BOM 4.2.2 (`single`/`factory`/`viewModel`, config lazy) |
+| UI | Compose BOM 2026.08.00 + Material3 + type-safe Navigation (`@Serializable`) |
+| DI | Koin BOM 4.2.2 (`single`/`factory`/`viewModel`, lazy config) |
 | Tests | JUnit5 + MockK + Turbine + coroutines-test + Compose-Test + Kover ≥45% |
-| SAST | CodeQL bloqueante + Detekt bloqueante local + Android Lint + Ktlint |
+| SAST | Blocking CodeQL + blocking local Detekt + Android Lint + Ktlint |
 
 ## Setup
 
 ```bash
-cp keys.properties.example keys.properties   # nunca subir secretos
-# local.properties con sdk.dir (target 36, compile 37)
+cp keys.properties.example keys.properties   # never commit secrets
+# local.properties with sdk.dir (target 36, compile 37)
 ./gradlew assembleDebug --no-daemon
 ```
 
-## Comandos
+## Commands
 
 ```bash
 ./gradlew assembleDebug --no-daemon
 ./gradlew lint detekt ktlintCheck --no-daemon
 ./gradlew testDebugUnitTest koverVerify --no-daemon
 ./gradlew compileDebugAndroidTestSources --no-daemon
-./gradlew assembleRelease bundleRelease --no-daemon   # listo, sin publicar
+./gradlew assembleRelease bundleRelease --no-daemon   # ready, not published
 ```
 
-CI (`ci.yml`, sin deploy): `validate-wrapper → static-analysis → unit-test → instrumentation-compile → security-scan → build(main)`.
+CI (`ci.yml`, no deploy): `validate-wrapper → static-analysis → unit-test → instrumentation-compile → security-scan → build(main)`.
 
-## Estructura
+## Structure
 
 ```text
 app/src/main/.../common/   SealedResult, Page<T>, CorrelationId
-app/src/main/.../util/     Logger sanitizado
+app/src/main/.../util/     Sanitized Logger
 app/src/main/.../di/       coreModule, dataModule, featureModule
 app/src/main/.../ui/       navigation (Home, NavGraph) + theme
-app/src/main/.../domain/ + data/   andamio vacío (primera entidad)
+app/src/main/.../domain/ + data/   empty scaffold (first entity)
 app/src/test/.../          shared/TestDataFactory, security/, common/
 specs/FT-0X/               spec.md + plan.md + tasks.md + checklists/
-docs/                      endpoints-internos, rate-matrix, asvs-l2 (vivos)
+docs/                      endpoints-internos, rate-matrix, asvs-l2 (live)
 ```
 
-## Flujo SDD
+## SDD components
 
-1 PR = 1 slice + `CHECKLIST_PR.md` + 1 revisor + `Memoria.md` al día. Aprobación firmada (`✅ Aprobada`): revisor humano + fecha expresa + `CHECKLIST_PR.md` OK + "Sin conflicto con constitución". Sin secretos en código/logs/errores.
+| Component | Path | Purpose |
+|---|---|---|
+| Constitution (source of truth) | `.specify/memory/constitution.md` | Non-negotiable principles; wins on conflict |
+| Constitution (mirror) | `./constitution.md` | Bit-for-bit copy of the source |
+| Agent guide | `AGENTS.md` | How to work (constitution says what is non-negotiable) |
+| Feature specs | `specs/FT-0X/{spec.md,plan.md,tasks.md,checklists/}` | 7 sections + Approval per feature; 1 PR = 1 slice |
+| Templates | `.specify/templates/` + `specs/_template.md` (physical copy) | Canonical spec/plan/tasks/checklist templates |
+| PR gate | `CHECKLIST_PR.md` | Mandatory checklist + 1 reviewer + protected `main` |
+| Memory | `Memoria.md` | Status, decisions with rationale, errors to avoid (root only) |
+| Live docs | `docs/` | Specs link, never duplicate live tables |
+| Quality scripts | `scripts/` | critic, coverage, delta (stubs) |
 
-## Pendiente
+## Subagents & skills
 
-Primera entidad (Model→…→DI→Tests, Database/Contract), tag `v0.1.0-ft3` (sin repo git), mutation/CodeQL en CI.
+Convention: `general` executes, `explore` reads only. All read constitution + `AGENTS.md` + `Memoria.md` first. None stores secrets or touches signing/env files. Definitions in `.opencode/agents/*.md` (`mode: subagent`).
+
+SDD core: `spec-drafter` (Draft spec, no code) → `plan-architect` (validated plan) → `task-decomposer` (atomic tasks) → `slice-scaffolder` (real-first build).
+Quality gates (read-only PASS/FAIL): `layer-guardian`, `security-reviewer`, `endpoints-validator`, `coverage-delta-reporter`.
+Build/tests: `test-writer` (JUnit5+MockK+Turbine, `TestDataFactory`).
+Closeout: `traceability-clerk` (drift report), `release-checker` (manual checklist, no CD), `docs-keeper` (markdown only) + `readme-keeper` alias.
+
+Skills in `.opencode/skills/*/SKILL.md`: `android-clean-base` (layers), `compose-mvvm-state` (`UiState/UiEvent`), `koin-di-generic` (DI), `android-testing-generic` (JUnit5+MockK+Turbine), `devsecops-gates-generic` (gates, no deploy), `contracts-docs` (live `docs/`), `store-local` (encrypted store). On conflict, constitution wins.
+
+## SDD flow
+
+1 PR = 1 slice + `CHECKLIST_PR.md` + 1 reviewer + `Memoria.md` up to date. Signed approval (`✅ Aprobada`): human reviewer + express date + `CHECKLIST_PR.md` OK + "No conflict with constitution". No secrets in code/logs/errors.
+
+## Roadmap
+
+First entity (Model→…→DI→Tests, Database/Contract suites), tag `v0.1.0-ft3`, mutation/CodeQL in CI.
