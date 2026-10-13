@@ -23,6 +23,7 @@ Nota: `UiEffect` es alias historico de `UiEvent`; usar `UiEvent`.
 
 ## Navegacion
 - Solo rutas `@Serializable` en `ui/navigation/`, `NavHost` centralizado, graphs anidados. Args complejos por `SavedStateHandle`.
+- Auth: rutas con args (`LoginRoute(error?)`, `HomeRoute(username)`); entry del `NavHost` lee `sessionFlow.first()` para ruta inicial sin parpadeo (ver `auth-session-management`). Éxito de login navega con username; logout emite evento y solo la Screen ejecuta `finishAffinity()`.
 
 ## Cuando usar
-- Nueva pantalla, refactor de estado, revision UI.
+- Nueva pantalla, refactor de estado, revision UI, navegación con sesión/auth.

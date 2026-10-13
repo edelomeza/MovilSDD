@@ -2,7 +2,7 @@
 
 > Project built with Spec Driven-Development and DevSecOps best practices.
 > Source of truth: `.specify/memory/constitution.md` v1.0.0 (mirror `./constitution.md`); working guide: `AGENTS.md`.
-> Status: base architecture **FT-00…FT-03 ✅ Approved** (2026-10-13). No app entity yet.
+> Status: base architecture **FT-00…FT-03 ✅ Approved** (2026-10-13). First entity **FT-04-login in progress** (spec/plan/tasks creados, skills/agents actualizados).
 
 ## Stack
 
@@ -41,7 +41,7 @@ app/src/main/.../common/   SealedResult, Page<T>, CorrelationId
 app/src/main/.../util/     Sanitized Logger
 app/src/main/.../di/       coreModule, dataModule, featureModule
 app/src/main/.../ui/       navigation (Home, NavGraph) + theme
-app/src/main/.../domain/ + data/   empty scaffold (first entity)
+app/src/main/.../domain/ + data/   FT-04: AuthModels, AuthRepository, UseCases, DTOs, Remote/Local DataSources, SessionManager
 app/src/test/.../          shared/TestDataFactory, security/, common/
 specs/FT-0X/               spec.md + plan.md + tasks.md + checklists/
 docs/                      endpoints-internos, rate-matrix, asvs-l2 (live)
@@ -70,7 +70,7 @@ Quality gates (read-only PASS/FAIL): `layer-guardian`, `security-reviewer`, `end
 Build/tests: `test-writer` (JUnit5+MockK+Turbine, `TestDataFactory`).
 Closeout: `traceability-clerk` (drift report), `release-checker` (manual checklist, no CD), `docs-keeper` (markdown only) + `readme-keeper` alias.
 
-Skills in `.opencode/skills/*/SKILL.md`: `android-clean-base` (layers), `compose-mvvm-state` (`UiState/UiEvent`), `koin-di-generic` (DI), `android-testing-generic` (JUnit5+MockK+Turbine), `devsecops-gates-generic` (gates, no deploy), `contracts-docs` (live `docs/`), `store-local` (encrypted store). On conflict, constitution wins.
+Skills in `.opencode/skills/*/SKILL.md`: `android-clean-base` (layers), `compose-mvvm-state` (`UiState/UiEvent`), `koin-di-generic` (DI), `android-testing-generic` (JUnit5+MockK+Turbine), `devsecops-gates-generic` (gates, no deploy), `contracts-docs` (live `docs/`), `store-local` (encrypted store), `mobile-app-ui-design` (UI/UX), `api-client-integration` (OpenAPI/DTOs), `auth-session-management` (auth/session). On conflict, constitution wins.
 
 ## SDD flow
 
@@ -78,4 +78,4 @@ Skills in `.opencode/skills/*/SKILL.md`: `android-clean-base` (layers), `compose
 
 ## Roadmap
 
-First entity (Model→…→DI→Tests, Database/Contract suites), tag `v0.1.0-ft3`, mutation/CodeQL in CI.
+First entity **FT-04-login** (Model→Repo→UseCase→VM→Screen→Route→DI→Tests→Gates), tag `v0.1.0-ft4`, mutation/CodeQL in CI.

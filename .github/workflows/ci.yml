@@ -59,6 +59,12 @@ jobs:
       - uses: github/codeql-action/init@v3
         with:
           languages: java-kotlin
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      # Build explícito: CodeQL necesita trazar la compilación (autobuild solo no basta en Gradle).
+      - run: ./gradlew assembleDebug --no-daemon
       - uses: github/codeql-action/analyze@v3
 
   build:

@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">MovilSDD</string>
+    <string name="login_title">Inicio de sesión</string>
+    <string name="login_username_label">Usuario</string>
+    <string name="login_password_label">Contraseña</string>
+    <string name="login_submit">Iniciar sesión</string>
+    <string name="login_username_icon_desc">Icono de usuario</string>
+    <string name="login_password_icon_desc">Icono de contraseña</string>
+    <string name="login_show_password">Mostrar contraseña</string>
+    <string name="login_hide_password">Ocultar contraseña</string>
+    <string name="home_logout">Cerrar Sesión</string>
+    <string name="home_logout_icon_desc">Icono de cerrar sesión</string>
 </resources>

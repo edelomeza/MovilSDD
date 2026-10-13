@@ -11,6 +11,7 @@
 - [2026-10-12] Integrados 12 subagentes en `.opencode/agents/` (`mode: subagent`): spec-drafter, plan-architect, task-decomposer, slice-scaffolder, layer-guardian, test-writer, security-reviewer, traceability-clerk, release-checker, docs-keeper (reemplaza readme-keeper), endpoints-validator, coverage-delta-reporter. `AGENTS.md:11` actualizado.
 - [2026-10-12] FT-00…FT-03 ejecutados (plan `003-arquitectura-base` v2, sin entidad, sin "bootstrap"): `specs/FT-{00-base-build,01-nucleo,02-store-skeleton,03-gates-cierre}/` con spec/plan/tasks/checklists; código `common/util/di/ui/navigation` + andamio `domain/data`; `assembleDebug`, `lint detekt ktlintCheck`, `testDebugUnitTest koverVerify`, `compileDebugAndroidTestSources`, `assembleRelease` verdes.
 - [2026-10-13] FT-00…FT-03 ✅ Aprobadas por Usuario (aceptación expresa en sesión, fecha 2026-10-13 — corrige 2026-10-11 propuesto, anterior a los specs): gates re-ejecutados exit 0, trazabilidad código↔spec OK; regla de firma en `AGENTS.md:23`.
+- [2026-10-13] FT-04-login implementado en rama `LoginImplementacion` (spec/plan/tasks Borrador conciliados con OpenAPI `APISDD v1`): dominio (`AuthModels`, `AuthRepository`, `SessionManager` interface, `Login/LogoutUseCase`), data (`AuthDto`+mappers, `AuthApiService`, `AuthRemoteDataSource`, `TokenLocalDataSource` cifrado, `PreferencesLocalDataSource`, `SessionManagerImpl`, `AuthRepositoryImpl`), UI (`LoginScreen`+`LoginViewModel`, `HomePlaceholderScreen`, `LoginRoute`/`HomeRoute`), `di/LoginModule`; 88 tests verdes; gates `assembleDebug`, `lint detekt ktlintCheck`, `testDebugUnitTest koverVerify`, `compileDebugAndroidTestSources`, `assembleRelease bundleRelease` verdes; docs vivos actualizados.
 
 ## Decisiones
 
@@ -28,6 +29,10 @@
 | 2026-10-13 | `README.md` en inglés: descripción SDD+DevSecOps + secciones SDD components y Subagents & skills; tag pendiente corregido (repo existe desde `19b93f9`) | Docs-keeper: README en sync |
 | 2026-10-13 | Tag `v0.1.0-ft3` creado y pusheado a `origin` (gates revalidados exit 0, FT-00…FT-03 ✅) | Cierra FT-03 gates-cierre; `main` aún sin protección en GitHub (activar en Settings) |
 | 2026-10-13 | Repo git inicializado (`main`, root-commit `19b93f9`, 120 archivos, identidad global existente): `local.properties`/`build/` fuera, sin secretos commiteados | Tag `v0.1.0-ft3` pendiente de primera entidad con cambios |
+| 2026-10-13 | FT-04: expiración server-driven (`dteExpira`→`expiresAtMillis`), DTOs ES→dominio EN con `@SerialName`, `SessionManager` interface en `domain/` (evita drift `domain→data`), logout local-first, `finishAffinity()` solo UI | OpenAPI real manda; constitución §4 (capas) y §6 (cifrado) |
+| 2026-10-13 | FT-04 deps: Retrofit 2.11.0 + OkHttp 4.12.0 + converter-kotlinx 1.0.0 (Apache 2.0, Square), security-crypto 1.0.0 estable (1.1.0 depreca API sin reemplazo), `material-icons-extended` (BOM 2026.08 recorta `icons-core`), desugaring por minSdk 24 (`java.time`) | Excepción documentada a plan §5 "sin libs nuevas"; medida por resolución Maven 200 |
+| 2026-10-13 | FT-04: `Logger.sanitize` ahora redacta `Bearer <token>` (regex solo cubría 1ª palabra); skills nuevos `api-client-integration` + `auth-session-management`; `critic-guardrails`/`check_endpoints-internos` siguen stubs en `scripts/` (gates cubiertos por agents) | Hallazgo `AuthSecurityTest`; deuda Kover 0.9.3 sin instrumentación (verify vacuo, issue) |
+| 2026-10-13 | Run local en físico: `AUTH_BASE_URL` por buildType (debug→`https://192.168.1.76:7229/`, release→placeholder), `network_security_config.xml` con `debug-overrides` (system+user, release intacto); causa del "No logramos conectarnos": `localhost` en el teléfono + cert dev no confiable | `login network unavailable` = `IOException` sin salida a red; falta lado backend (Kestrel en LAN) + CA en el teléfono |
 
 ## Errores a evitar
 
@@ -35,3 +40,5 @@
 - TODO/FIXME sin issue (caza `ForbiddenComment`).
 - Hardcodear URLs/keys/timeouts.
 - Fake en `prod`; fakes solo en `test/`.
+- `const val` en camelCase (ktlint exige SCREAMING_SNAKE_CASE); `return try` (ktlint exige expression body); DTOs multilínea que quepan en 160 (ktlint las colapsa).
+- `SessionManager` interface en `data/` (crea dependencia `domain→data`); va en `domain/repository/`.

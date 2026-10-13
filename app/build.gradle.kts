@@ -19,9 +19,15 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        // Dev default for local mock backend. Prod value injected per environment, never hardcoded in code.
+        buildConfigField("String", "AUTH_BASE_URL", "\"https://localhost:7229/\"")
     }
 
     buildTypes {
+        debug {
+            // Physical device on same LAN as dev PC (PC: 192.168.1.76). Emulator would use https://10.0.2.2:7229/.
+            buildConfigField("String", "AUTH_BASE_URL", "\"https://192.168.1.76:7229/\"")
+        }
         release {
             isMinifyEnabled = true
             isShrinkResources = true
@@ -35,6 +41,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
+        isCoreLibraryDesugaringEnabled = true
     }
     kotlin {
         compilerOptions {
@@ -69,6 +76,8 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material.icons.core)
+    implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
@@ -84,6 +93,10 @@ dependencies {
     implementation(libs.koin.compose.viewmodel)
     implementation(libs.androidx.security.crypto)
     implementation(libs.androidx.datastore.preferences)
+    implementation(libs.retrofit)
+    implementation(libs.okhttp)
+    implementation(libs.retrofit.kotlinx.serialization.converter)
+    coreLibraryDesugaring(libs.desugar.libs)
     testImplementation(libs.junit4)
     testImplementation(libs.junit5.jupiter)
     testImplementation(libs.mockk)
