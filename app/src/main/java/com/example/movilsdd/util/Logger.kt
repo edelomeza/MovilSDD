@@ -8,7 +8,10 @@ object Logger {
     private val secretPattern =
         Regex("(?i)(token|secret|password|passwd|api[_-]?key|authorization)[\"']?\\s*[:=]\\s*[\"']?[^\\s\"',}]+")
 
-    fun sanitize(message: String): String = secretPattern.replace(message, "$1=***")
+    private val bearerPattern =
+        Regex("(?i)bearer\\s+[^\\s\"',}]+")
+
+    fun sanitize(message: String): String = secretPattern.replace(bearerPattern.replace(message, "Bearer ***"), "$1=***")
 
     fun d(tag: String, message: String, correlationId: CorrelationId? = null) {
         if (BuildConfig.DEBUG) Log.d(tag, withId(message, correlationId))
