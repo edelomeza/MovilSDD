@@ -162,4 +162,4 @@ Instrumented (Compose-Test): render Login (título, campos, iconos, botón), inp
 
 | Estado | Revisor | Fecha | Evidencia |
 |---|---|---|---|
-| Borrador | — | — | — |
+| ✅ Aprobada | Usuario (aceptación expresa) | 2026-10-13 | PR #1 mergeado a `main`; CHECKLIST_PR.md OK; gates verdes (`assembleDebug`, `lint detekt ktlintCheck`, `testDebugUnitTest`, `koverVerify`, `assembleRelease`); sin conflicto con constitución |

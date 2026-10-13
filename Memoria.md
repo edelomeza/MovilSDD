@@ -12,6 +12,7 @@
 - [2026-10-12] FT-00…FT-03 ejecutados (plan `003-arquitectura-base` v2, sin entidad, sin "bootstrap"): `specs/FT-{00-base-build,01-nucleo,02-store-skeleton,03-gates-cierre}/` con spec/plan/tasks/checklists; código `common/util/di/ui/navigation` + andamio `domain/data`; `assembleDebug`, `lint detekt ktlintCheck`, `testDebugUnitTest koverVerify`, `compileDebugAndroidTestSources`, `assembleRelease` verdes.
 - [2026-10-13] FT-00…FT-03 ✅ Aprobadas por Usuario (aceptación expresa en sesión, fecha 2026-10-13 — corrige 2026-10-11 propuesto, anterior a los specs): gates re-ejecutados exit 0, trazabilidad código↔spec OK; regla de firma en `AGENTS.md:23`.
 - [2026-10-13] FT-04-login implementado en rama `LoginImplementacion` (spec/plan/tasks Borrador conciliados con OpenAPI `APISDD v1`): dominio (`AuthModels`, `AuthRepository`, `SessionManager` interface, `Login/LogoutUseCase`), data (`AuthDto`+mappers, `AuthApiService`, `AuthRemoteDataSource`, `TokenLocalDataSource` cifrado, `PreferencesLocalDataSource`, `SessionManagerImpl`, `AuthRepositoryImpl`), UI (`LoginScreen`+`LoginViewModel`, `HomePlaceholderScreen`, `LoginRoute`/`HomeRoute`), `di/LoginModule`; 88 tests verdes; gates `assembleDebug`, `lint detekt ktlintCheck`, `testDebugUnitTest koverVerify`, `compileDebugAndroidTestSources`, `assembleRelease bundleRelease` verdes; docs vivos actualizados.
+- [2026-10-13] FT-04 ✅ Aprobada por Usuario + PR #1 mergeado a `main`; CI fixes en la rama (`gradlew` 100755, build explícito pre-CodeQL); tag `v0.1.0-ft4`.
 
 ## Decisiones
 
