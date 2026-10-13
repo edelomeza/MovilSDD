@@ -32,6 +32,7 @@
 | 2026-10-13 | FT-04: expiración server-driven (`dteExpira`→`expiresAtMillis`), DTOs ES→dominio EN con `@SerialName`, `SessionManager` interface en `domain/` (evita drift `domain→data`), logout local-first, `finishAffinity()` solo UI | OpenAPI real manda; constitución §4 (capas) y §6 (cifrado) |
 | 2026-10-13 | FT-04 deps: Retrofit 2.11.0 + OkHttp 4.12.0 + converter-kotlinx 1.0.0 (Apache 2.0, Square), security-crypto 1.0.0 estable (1.1.0 depreca API sin reemplazo), `material-icons-extended` (BOM 2026.08 recorta `icons-core`), desugaring por minSdk 24 (`java.time`) | Excepción documentada a plan §5 "sin libs nuevas"; medida por resolución Maven 200 |
 | 2026-10-13 | FT-04: `Logger.sanitize` ahora redacta `Bearer <token>` (regex solo cubría 1ª palabra); skills nuevos `api-client-integration` + `auth-session-management`; `critic-guardrails`/`check_endpoints-internos` siguen stubs en `scripts/` (gates cubiertos por agents) | Hallazgo `AuthSecurityTest`; deuda Kover 0.9.3 sin instrumentación (verify vacuo, issue) |
+| 2026-10-13 | Run local en físico: `AUTH_BASE_URL` por buildType (debug→`https://192.168.1.76:7229/`, release→placeholder), `network_security_config.xml` con `debug-overrides` (system+user, release intacto); causa del "No logramos conectarnos": `localhost` en el teléfono + cert dev no confiable | `login network unavailable` = `IOException` sin salida a red; falta lado backend (Kestrel en LAN) + CA en el teléfono |
 
 ## Errores a evitar
 

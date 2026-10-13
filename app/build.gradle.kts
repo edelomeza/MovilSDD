@@ -24,6 +24,10 @@ android {
     }
 
     buildTypes {
+        debug {
+            // Physical device on same LAN as dev PC (PC: 192.168.1.76). Emulator would use https://10.0.2.2:7229/.
+            buildConfigField("String", "AUTH_BASE_URL", "\"https://192.168.1.76:7229/\"")
+        }
         release {
             isMinifyEnabled = true
             isShrinkResources = true
